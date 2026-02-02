@@ -301,16 +301,54 @@ Następnie: `python scripts/generate_interpretations.py`
 
 ---
 
-## Deploy na Streamlit Cloud (opcjonalnie)
+## Deploy na Streamlit Cloud
 
-1. Push do GitHub repo
-2. https://share.streamlit.io → New app
-3. Dodaj secrets:
-   ```toml
-   SUPABASE_URL = "https://..."
-   SUPABASE_KEY = "sb_secret_..."
-   ```
-4. Deploy
+### Aktualna konfiguracja (LIVE)
+
+**Publiczny URL:** https://prompt-validation-jb7ey4wgzuvhbforapp4mqf.streamlit.app/
+
+**Status:** Aplikacja jest wdrożona i działa publicznie.
+
+| Parametr | Wartość |
+|----------|---------|
+| **Repository** | `adam-gitpriv/prompt-validation` (publiczne) |
+| **Branch** | `main` |
+| **Main file** | `app/streamlit_app.py` |
+| **Python** | 3.13 |
+| **Konto Streamlit** | adam-gitpriv (GitHub OAuth) |
+
+### Secrets (skonfigurowane w Streamlit Cloud)
+
+```toml
+SUPABASE_URL = "https://crhulfzhwybxpkoxkxmr.supabase.co"
+SUPABASE_KEY = "sb_secret_JsAs7L1v7L0mUho_3SYeIA_o-zOBcs6"
+```
+
+### Zarządzanie aplikacją
+
+1. **Panel admina:** https://share.streamlit.io → My apps → prompt-validation
+2. **Logi:** W panelu admina → Manage app → Logs
+3. **Restart:** Manage app → Reboot app
+4. **Secrets:** Settings → Secrets (format TOML)
+
+### Redeploy po zmianach
+
+Streamlit Cloud automatycznie wykrywa zmiany w repozytorium GitHub i redeplojuje aplikację po każdym pushu do brancha `main`.
+
+```bash
+# Wystarczy:
+git add . && git commit -m "Update" && git push
+# Aplikacja się automatycznie przebuduje
+```
+
+### Troubleshooting Streamlit Cloud
+
+| Problem | Rozwiązanie |
+|---------|-------------|
+| Aplikacja nie startuje | Sprawdź logi w panelu admina |
+| Błąd Supabase | Zweryfikuj Secrets w Settings |
+| Stara wersja | Kliknij "Reboot app" w Manage app |
+| Zmiana secrets | Po edycji secrets kliknij "Reboot app" |
 
 ---
 
