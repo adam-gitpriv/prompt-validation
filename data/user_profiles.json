@@ -1,0 +1,12 @@
+[
+  {"id": 1, "age": 28, "gender": "K", "work": "marketing manager", "interests": "joga, podróże"},
+  {"id": 2, "age": 35, "gender": "M", "work": "programista", "interests": "gry komputerowe, bieganie"},
+  {"id": 3, "age": 42, "gender": "K", "work": "nauczycielka", "interests": "czytanie, ogrodnictwo"},
+  {"id": 4, "age": 31, "gender": "M", "work": "handlowiec", "interests": "piłka nożna, gotowanie"},
+  {"id": 5, "age": 26, "gender": "K", "work": "graficzka", "interests": "sztuka, koncerty"},
+  {"id": 6, "age": 45, "gender": "M", "work": "kierownik projektu", "interests": "wędkarstwo, majsterkowanie"},
+  {"id": 7, "age": 33, "gender": "K", "work": "pielęgniarka", "interests": "fitness, seriale"},
+  {"id": 8, "age": 29, "gender": "M", "work": "analityk danych", "interests": "szachy, podcasts"},
+  {"id": 9, "age": 38, "gender": "K", "work": "prawniczka", "interests": "tenis, wine tasting"},
+  {"id": 10, "age": 50, "gender": "M", "work": "przedsiębiorca", "interests": "golf, historia"}
+]
