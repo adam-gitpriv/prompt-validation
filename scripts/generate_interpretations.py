@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate interpretations using OpenAI GPT-4o.
-Creates ~270 interpretations (3 instruments x 5 levels x 6 variants x 3 profiles).
-Uses 6 separate prompt templates as per the plan.
+Uses V2 prompt templates that generate full structured interpretations (JSON format).
 """
 import os
 import json
@@ -29,13 +28,17 @@ with open(BASE_DIR / "data/user_profiles.json") as f:
     USER_PROFILES = json.load(f)
 
 # Prompt variants mapping to template files
+# "instruments" key limits variant to specific instruments (None = all instruments)
 PROMPT_VARIANTS = [
-    {"id": "basic", "template": "basic.jinja2"},
-    {"id": "with_work", "template": "with_work.jinja2"},
-    {"id": "with_interests", "template": "with_interests.jinja2"},
-    {"id": "with_history", "template": "with_history.jinja2"},
-    {"id": "with_support", "template": "with_support.jinja2"},
-    {"id": "full", "template": "full.jinja2"},
+    # V2 universal prompts (all instruments)
+    {"id": "structural", "template": "variant_a_structural.jinja2", "instruments": None},
+    {"id": "clinical", "template": "variant_b_clinical.jinja2", "instruments": None},
+    {"id": "personalized", "template": "variant_c_personalized.jinja2", "instruments": None},
+    {"id": "fewshot", "template": "variant_d_fewshot.jinja2", "instruments": None},
+    {"id": "cot", "template": "variant_e_cot.jinja2", "instruments": None},
+    # Kasia's instrument-specific prompts
+    {"id": "kasia_phq9", "template": "variant_kasia_phq9.jinja2", "instruments": ["PHQ-9"]},
+    {"id": "kasia_gad7", "template": "variant_kasia_gad7.jinja2", "instruments": ["GAD-7"]},
 ]
 
 # Load all templates
@@ -87,22 +90,6 @@ def generate_history_data(instrument_code: str, current_score: int) -> dict:
     }
 
 
-def generate_support_data() -> dict:
-    """Generate simulated support activity data for with_support variant."""
-    has_chat = random.choice([True, False])
-    has_sessions = random.choice([True, False])
-
-    programs = ["Zarządzanie stresem", "Mindfulness", "Sen i regeneracja", "Odporność psychiczna"]
-    active_programs = random.sample(programs, k=random.randint(0, 2)) if random.random() > 0.5 else []
-
-    return {
-        "has_chat_history": has_chat,
-        "last_chat_date": "3 dni temu" if has_chat else None,
-        "has_sessions": has_sessions,
-        "sessions_count": random.randint(2, 8) if has_sessions else 0,
-        "active_programs": active_programs
-    }
-
 
 def generate_interpretation(
     instrument_code: str,
@@ -129,22 +116,17 @@ def generate_interpretation(
         "interests": profile["interests"],
     }
 
-    # Add history data for with_history and full variants
-    if variant_id in ["with_history", "full"]:
+    # Add history data for variants that support previous results
+    if variant_id in ["structural", "clinical", "personalized", "fewshot", "cot", "kasia_phq9", "kasia_gad7"]:
         history = generate_history_data(instrument_code, score)
         context.update(history)
-
-    # Add support data for with_support and full variants
-    if variant_id in ["with_support", "full"]:
-        support = generate_support_data()
-        context.update(support)
 
     prompt = template.render(**context)
 
     response = openai_client.chat.completions.create(
         model=MODEL,
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=300,
+        max_tokens=1500,  # Increased for full JSON structure responses
         temperature=0.7
     )
 
@@ -194,6 +176,10 @@ def main(dry_run: bool = False, limit: int = None, skip_existing: bool = True):
 
         for score_info in scores:
             for variant in PROMPT_VARIANTS:
+                # Skip variants that are restricted to other instruments
+                if variant.get("instruments") and instrument_code not in variant["instruments"]:
+                    continue
+
                 for profile in selected_profiles:
                     if limit and generated >= limit:
                         print(f"\n✅ Generated {generated} interpretations (limit reached)")

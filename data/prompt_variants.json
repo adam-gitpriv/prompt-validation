@@ -1,8 +1,0 @@
-[
-  {"id": "A", "name": "base", "include_age": false, "include_gender": false, "include_work": false, "include_interests": false},
-  {"id": "B", "name": "age_gender", "include_age": true, "include_gender": true, "include_work": false, "include_interests": false},
-  {"id": "C", "name": "work", "include_age": true, "include_gender": true, "include_work": true, "include_interests": false},
-  {"id": "D", "name": "interests", "include_age": true, "include_gender": true, "include_work": false, "include_interests": true},
-  {"id": "E", "name": "work_interests", "include_age": true, "include_gender": true, "include_work": true, "include_interests": true},
-  {"id": "F", "name": "full_context", "include_age": true, "include_gender": true, "include_work": true, "include_interests": true}
-]

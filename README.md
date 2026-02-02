@@ -28,19 +28,26 @@ Zbadać, jak **personalizacja promptów** (wiek, płeć, zawód, zainteresowania
 ```
 prompt-validation/
 ├── data/
-│   ├── instruments.json      # Definicje instrumentów klinicznych
-│   ├── user_profiles.json    # 10 profili użytkowników testowych
-│   └── prompt_variants.json  # 6 wariantów promptów (A-F)
+│   ├── instruments.json          # Definicje instrumentów klinicznych
+│   ├── instruments_extended.json # Rozszerzone metadane instrumentów
+│   ├── user_profiles.json        # 10 profili użytkowników testowych
+│   └── prompt_variants_v2.json   # 7 wariantów promptów (A-G)
 ├── prompts/
-│   └── base.jinja2           # Szablon Jinja2 z warunkowymi sekcjami
+│   ├── variant_a_structural.jinja2   # Wariant strukturalny
+│   ├── variant_b_clinical.jinja2     # Wariant kliniczny
+│   ├── variant_c_personalized.jinja2 # Wariant personalizowany
+│   ├── variant_d_fewshot.jinja2      # Wariant few-shot (rekomendowany)
+│   ├── variant_e_cot.jinja2          # Wariant chain-of-thought
+│   ├── variant_kasia_phq9.jinja2     # Wariant Kasi dla PHQ-9
+│   └── variant_kasia_gad7.jinja2     # Wariant Kasi dla GAD-7
 ├── scripts/
-│   ├── setup_supabase.py     # Generuje SQL do utworzenia tabel
-│   └── generate_interpretations.py  # Generuje interpretacje przez GPT
+│   ├── setup_supabase.py             # Generuje SQL do utworzenia tabel
+│   ├── generate_interpretations.py   # Generuje interpretacje przez GPT
+│   └── analysis.py                   # Analiza wyników ewaluacji
 ├── app/
 │   └── streamlit_app.py      # Aplikacja do ewaluacji blind A/B
 ├── venv/                     # Virtual environment Python
 ├── requirements.txt          # Zależności Python
-├── .env.example              # Przykładowe zmienne środowiskowe
 └── README.md                 # Ta dokumentacja
 ```
 
@@ -58,24 +65,11 @@ Szczegóły w `data/instruments.json`.
 
 ---
 
-## Warianty promptów v1 (legacy - proste interpretacje)
+## Warianty promptów
 
-| ID | Nazwa | Zawiera w prompcie |
-|----|-------|-------------------|
-| **A** | base | Tylko wynik testu |
-| **B** | age_gender | + wiek, płeć |
-| **C** | work | + wiek, płeć, zawód |
-| **D** | interests | + wiek, płeć, zainteresowania |
-| **E** | work_interests | + wiek, płeć, zawód, zainteresowania |
-| **F** | full_context | Wszystko (= E, alias) |
+Prompty generują pełną strukturę interpretacji zgodną z designem w Figmie.
 
-Logika wariantów w `prompts/base.jinja2` (Jinja2 z `{% if include_X %}`).
-
----
-
-## Warianty promptów v2 (NOWE - zgodne z UI Figma)
-
-Nowe prompty generują pełną strukturę interpretacji zgodną z designem w Figmie:
+### Warianty uniwersalne (wszystkie instrumenty)
 
 | Wariant | Plik | Kiedy używać |
 |---------|------|--------------|
@@ -84,6 +78,13 @@ Nowe prompty generują pełną strukturę interpretacji zgodną z designem w Fig
 | **C - Personalizowany** | `variant_c_personalized.jinja2` | Gdy mamy profil użytkownika |
 | **D - Few-shot** | `variant_d_fewshot.jinja2` | **REKOMENDOWANY** - najbardziej spójny |
 | **E - Chain-of-Thought** | `variant_e_cot.jinja2` | Dla edge cases, najwyższa jakość |
+
+### Warianty specyficzne dla instrumentów (Kasia)
+
+| Wariant | Plik | Instrument |
+|---------|------|------------|
+| **F - Kasia PHQ-9** | `variant_kasia_phq9.jinja2` | Tylko PHQ-9 |
+| **G - Kasia GAD-7** | `variant_kasia_gad7.jinja2` | Tylko GAD-7 |
 
 ### Output v2 (zgodny z Figma)
 

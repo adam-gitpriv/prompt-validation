@@ -5,11 +5,7 @@
     "template": "variant_a_structural.jinja2",
     "description": "Podstawowy wariant strukturalny - jasna struktura, minimum kontekstu",
     "recommended_for": "domyślny, najbezpieczniejszy",
-    "requires": {
-      "user_profile": false,
-      "instrument_methodology": false,
-      "previous_results": false
-    }
+    "instruments": null
   },
   {
     "id": "B",
@@ -17,11 +13,7 @@
     "template": "variant_b_clinical.jinja2",
     "description": "Kontekstowo-kliniczny - wykorzystuje wiedzę o metodologii instrumentu",
     "recommended_for": "gdy zależy nam na merytoryce i kontekście klinicznym",
-    "requires": {
-      "user_profile": false,
-      "instrument_methodology": true,
-      "previous_results": false
-    }
+    "instruments": null
   },
   {
     "id": "C",
@@ -29,11 +21,7 @@
     "template": "variant_c_personalized.jinja2",
     "description": "Personalizowany - dopasowany do profilu użytkownika",
     "recommended_for": "gdy mamy dane o użytkowniku (wiek, płeć, praca)",
-    "requires": {
-      "user_profile": true,
-      "instrument_methodology": false,
-      "previous_results": false
-    }
+    "instruments": null
   },
   {
     "id": "D",
@@ -41,11 +29,7 @@
     "template": "variant_d_fewshot.jinja2",
     "description": "Few-shot z przykładami - najbardziej przewidywalny output",
     "recommended_for": "gdy zależy nam na spójności i jakości, łatwy do walidacji",
-    "requires": {
-      "user_profile": false,
-      "instrument_methodology": false,
-      "previous_results": false
-    }
+    "instruments": null
   },
   {
     "id": "E",
@@ -53,10 +37,22 @@
     "template": "variant_e_cot.jinja2",
     "description": "Chain-of-Thought - analiza krok po kroku przed generacją",
     "recommended_for": "dla trudniejszych przypadków, edge cases, najwyższa jakość",
-    "requires": {
-      "user_profile": false,
-      "instrument_methodology": false,
-      "previous_results": false
-    }
+    "instruments": null
+  },
+  {
+    "id": "F",
+    "name": "kasia_phq9",
+    "template": "variant_kasia_phq9.jinja2",
+    "description": "Prompt Kasi dla PHQ-9 - szczegółowe wytyczne kliniczne, empatyczny ton",
+    "recommended_for": "PHQ-9, gdy zależy na szczegółowej strukturze klinicznej",
+    "instruments": ["PHQ-9"]
+  },
+  {
+    "id": "G",
+    "name": "kasia_gad7",
+    "template": "variant_kasia_gad7.jinja2",
+    "description": "Prompt Kasi dla GAD-7 - szczegółowe wytyczne kliniczne, empatyczny ton",
+    "recommended_for": "GAD-7, gdy zależy na szczegółowej strukturze klinicznej",
+    "instruments": ["GAD-7"]
   }
 ]
