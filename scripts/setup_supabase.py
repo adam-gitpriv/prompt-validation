@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS interpretations (
     prompt_variant TEXT NOT NULL,
     user_profile_id INTEGER,
     interpretation_text TEXT NOT NULL,
-    model TEXT DEFAULT 'gpt-4.1',
+    model TEXT DEFAULT 'gpt-5.1',
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

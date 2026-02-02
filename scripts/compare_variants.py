@@ -97,9 +97,9 @@ def generate_interpretation(variant_id: str, profile: dict, instrument_code: str
     prompt = template.render(**context)
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.1",
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=1500,
+        max_completion_tokens=1500,
         temperature=0.7
     )
 

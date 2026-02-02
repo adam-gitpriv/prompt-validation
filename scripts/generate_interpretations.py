@@ -19,7 +19,7 @@ from supabase import create_client
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-MODEL = "gpt-4.1"
+MODEL = "gpt-5.1"
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -184,7 +184,7 @@ def generate_interpretation(
     response = get_openai_client().chat.completions.create(
         model=MODEL,
         messages=[{"role": "user", "content": prompt}],
-        max_tokens=1500,
+        max_completion_tokens=1500,
         temperature=0.7
     )
 

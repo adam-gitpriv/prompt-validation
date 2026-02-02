@@ -50,7 +50,7 @@ streamlit run app/streamlit_app.py
 ## Architecture
 
 ### Generation Pipeline
-`User Profiles × Instruments × Score Levels` → Jinja2 template rendering → GPT-4.1 API → Supabase storage
+`User Profiles × Instruments × Score Levels` → Jinja2 template rendering → GPT-5.1 API → Supabase storage
 
 ### Evaluation Flow
 Blind A/B pairs (same instrument/score, different variants) → Evaluator rates winner + 1-5 scale → Analysis computes win rates
@@ -103,7 +103,7 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 ## Environment Variables
 
 Required (set in ~/.zshrc or Streamlit Cloud secrets):
-- `OPENAI_API_KEY` - GPT-4.1 API access
+- `OPENAI_API_KEY` - GPT-5.1 API access
 - `SUPABASE_URL` - PostgreSQL endpoint
 - `SUPABASE_KEY` - Database auth
 
