@@ -58,7 +58,7 @@ Szczegóły w `data/instruments.json`.
 
 ---
 
-## Warianty promptów
+## Warianty promptów v1 (legacy - proste interpretacje)
 
 | ID | Nazwa | Zawiera w prompcie |
 |----|-------|-------------------|
@@ -70,6 +70,45 @@ Szczegóły w `data/instruments.json`.
 | **F** | full_context | Wszystko (= E, alias) |
 
 Logika wariantów w `prompts/base.jinja2` (Jinja2 z `{% if include_X %}`).
+
+---
+
+## Warianty promptów v2 (NOWE - zgodne z UI Figma)
+
+Nowe prompty generują pełną strukturę interpretacji zgodną z designem w Figmie:
+
+| Wariant | Plik | Kiedy używać |
+|---------|------|--------------|
+| **A - Strukturalny** | `variant_a_structural.jinja2` | Domyślny, najbezpieczniejszy |
+| **B - Kliniczny** | `variant_b_clinical.jinja2` | Gdy zależy na merytoryce klinicznej |
+| **C - Personalizowany** | `variant_c_personalized.jinja2` | Gdy mamy profil użytkownika |
+| **D - Few-shot** | `variant_d_fewshot.jinja2` | **REKOMENDOWANY** - najbardziej spójny |
+| **E - Chain-of-Thought** | `variant_e_cot.jinja2` | Dla edge cases, najwyższa jakość |
+
+### Output v2 (zgodny z Figma)
+
+```json
+{
+  "headline": "Twój wynik wskazuje [poziom] [objawy obszaru]",
+  "summary": {
+    "level_meaning": "Co zwykle oznacza ten poziom: ...",
+    "daily_impact": "Wpływ na codzienność: ...",
+    "warning_signs": "Na co uważać: ..."
+  },
+  "interpretation": "2-3 akapity rozbudowanej interpretacji...",
+  "comparison_to_previous": "Porównanie do poprzednich lub null",
+  "recommendations": ["5-6 konkretnych rekomendacji"],
+  "specialist_recommendation": {
+    "recommended": true/false,
+    "urgency": "low/medium/high",
+    "type": "chat/consultation"
+  }
+}
+```
+
+**Dokumentacja v2:** `prompts/PROMPTY_INTERPRETACJI_v2.md`
+**Metadane:** `data/prompt_variants_v2.json`
+**Instrumenty rozszerzone:** `data/instruments_extended.json`
 
 ---
 

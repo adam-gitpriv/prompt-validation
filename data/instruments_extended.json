@@ -1,0 +1,243 @@
+{
+  "PHQ-9": {
+    "name": "Patient Health Questionnaire-9",
+    "name_pl": "Kwestionariusz Zdrowia Pacjenta-9",
+    "domain": "depression",
+    "domain_pl": "depresja",
+    "methodology": "PHQ-9 to 9-itemowy kwestionariusz przesiewowy do oceny nasilenia objawów depresji. Każde pytanie dotyczy częstości występowania określonego objawu w ciągu ostatnich 2 tygodni, ocenianej na skali 0-3.",
+    "clinical_application": "Narzędzie służy do screeningu depresji, monitorowania odpowiedzi na leczenie oraz oceny nasilenia objawów. Nie jest narzędziem diagnostycznym - wynik wymaga weryfikacji przez specjalistę.",
+    "scoring": {
+      "max_score": 27,
+      "ranges": [
+        {
+          "min": 0, "max": 4,
+          "level": "minimal",
+          "label": "Minimalne objawy depresji",
+          "clinical_interpretation": "Brak istotnych klinicznie objawów depresji. Objawy nie wymagają interwencji, zalecana profilaktyka zdrowia psychicznego."
+        },
+        {
+          "min": 5, "max": 9,
+          "level": "mild",
+          "label": "Łagodne objawy depresji",
+          "clinical_interpretation": "Łagodne objawy depresyjne. Zalecana obserwacja, wsparcie psychoedukacyjne. Rozważenie konsultacji przy utrzymywaniu się objawów."
+        },
+        {
+          "min": 10, "max": 14,
+          "level": "moderate",
+          "label": "Umiarkowane objawy depresji",
+          "clinical_interpretation": "Umiarkowane nasilenie objawów. Wskazana konsultacja ze specjalistą. Rozważenie psychoterapii lub farmakoterapii."
+        },
+        {
+          "min": 15, "max": 19,
+          "level": "moderately_severe",
+          "label": "Umiarkowanie ciężkie objawy depresji",
+          "clinical_interpretation": "Znaczne nasilenie objawów. Zalecana pilna konsultacja psychiatryczna lub psychologiczna. Rozważenie aktywnego leczenia."
+        },
+        {
+          "min": 20, "max": 27,
+          "level": "severe",
+          "label": "Ciężkie objawy depresji",
+          "clinical_interpretation": "Ciężkie nasilenie objawów. Wymagana pilna konsultacja specjalistyczna. Konieczna ocena ryzyka samobójstwa."
+        }
+      ]
+    },
+    "specialist_thresholds": {
+      "recommend_chat": 10,
+      "recommend_consultation": 15,
+      "crisis_support": 20
+    }
+  },
+  "GAD-7": {
+    "name": "Generalized Anxiety Disorder-7",
+    "name_pl": "Skala Uogólnionego Zaburzenia Lękowego-7",
+    "domain": "anxiety",
+    "domain_pl": "lęk",
+    "methodology": "GAD-7 to 7-itemowy kwestionariusz przesiewowy do oceny nasilenia lęku uogólnionego. Ocenia częstość występowania objawów lękowych w ciągu ostatnich 2 tygodni na skali 0-3.",
+    "clinical_application": "Narzędzie do screeningu zaburzeń lękowych, w tym lęku uogólnionego, lęku społecznego i panicznego. Wysoka czułość dla GAD.",
+    "scoring": {
+      "max_score": 21,
+      "ranges": [
+        {
+          "min": 0, "max": 4,
+          "level": "minimal",
+          "label": "Minimalny lęk",
+          "clinical_interpretation": "Brak istotnych klinicznie objawów lękowych. Zalecana profilaktyka stresu."
+        },
+        {
+          "min": 5, "max": 9,
+          "level": "mild",
+          "label": "Łagodny lęk",
+          "clinical_interpretation": "Łagodne objawy lękowe. Wskazana obserwacja i techniki redukcji stresu. Konsultacja przy utrzymywaniu się objawów."
+        },
+        {
+          "min": 10, "max": 14,
+          "level": "moderate",
+          "label": "Umiarkowany lęk",
+          "clinical_interpretation": "Umiarkowane nasilenie lęku. Zalecana konsultacja specjalistyczna. Rozważenie psychoterapii poznawczo-behawioralnej."
+        },
+        {
+          "min": 15, "max": 21,
+          "level": "severe",
+          "label": "Ciężki lęk",
+          "clinical_interpretation": "Znaczne nasilenie objawów lękowych. Wskazana pilna konsultacja. Rozważenie farmakoterapii wspierającej."
+        }
+      ]
+    },
+    "specialist_thresholds": {
+      "recommend_chat": 8,
+      "recommend_consultation": 12,
+      "crisis_support": 18
+    }
+  },
+  "DASS-21": {
+    "name": "Depression Anxiety Stress Scales-21",
+    "name_pl": "Skala Depresji, Lęku i Stresu-21",
+    "domain": "emotional_health",
+    "domain_pl": "kondycja emocjonalna",
+    "methodology": "DASS-21 to 21-itemowy kwestionariusz mierzący trzy wymiary: depresję (7 pytań), lęk (7 pytań) i stres (7 pytań). Wyniki mnożone x2 dla porównania z normami DASS-42.",
+    "clinical_application": "Kompleksowa ocena stanu emocjonalnego. Szczególnie użyteczne dla rozróżnienia między objawami depresyjnymi, lękowymi i stresowymi.",
+    "subscales": ["depression", "anxiety", "stress"],
+    "scoring": {
+      "max_score": 42,
+      "subscale_max": 14,
+      "depression_ranges": [
+        {"min": 0, "max": 4, "level": "normal", "label": "Norma"},
+        {"min": 5, "max": 6, "level": "mild", "label": "Łagodne"},
+        {"min": 7, "max": 10, "level": "moderate", "label": "Umiarkowane"},
+        {"min": 11, "max": 13, "level": "severe", "label": "Ciężkie"},
+        {"min": 14, "max": 21, "level": "extremely_severe", "label": "Bardzo ciężkie"}
+      ],
+      "anxiety_ranges": [
+        {"min": 0, "max": 3, "level": "normal", "label": "Norma"},
+        {"min": 4, "max": 5, "level": "mild", "label": "Łagodne"},
+        {"min": 6, "max": 7, "level": "moderate", "label": "Umiarkowane"},
+        {"min": 8, "max": 9, "level": "severe", "label": "Ciężkie"},
+        {"min": 10, "max": 21, "level": "extremely_severe", "label": "Bardzo ciężkie"}
+      ],
+      "stress_ranges": [
+        {"min": 0, "max": 7, "level": "normal", "label": "Norma"},
+        {"min": 8, "max": 9, "level": "mild", "label": "Łagodne"},
+        {"min": 10, "max": 12, "level": "moderate", "label": "Umiarkowane"},
+        {"min": 13, "max": 16, "level": "severe", "label": "Ciężkie"},
+        {"min": 17, "max": 21, "level": "extremely_severe", "label": "Bardzo ciężkie"}
+      ]
+    }
+  },
+  "MBI": {
+    "name": "Maslach Burnout Inventory",
+    "name_pl": "Kwestionariusz Wypalenia Zawodowego Maslach",
+    "domain": "burnout",
+    "domain_pl": "wypalenie zawodowe",
+    "methodology": "MBI mierzy trzy wymiary wypalenia: wyczerpanie emocjonalne, depersonalizację i obniżone poczucie osiągnięć osobistych.",
+    "clinical_application": "Złoty standard w ocenie wypalenia zawodowego. Wymaga interpretacji wszystkich trzech wymiarów łącznie.",
+    "subscales": ["emotional_exhaustion", "depersonalization", "personal_accomplishment"],
+    "scoring": {
+      "emotional_exhaustion": {
+        "max_score": 54,
+        "ranges": [
+          {"min": 0, "max": 16, "level": "low", "label": "Niskie wyczerpanie"},
+          {"min": 17, "max": 26, "level": "moderate", "label": "Umiarkowane wyczerpanie"},
+          {"min": 27, "max": 54, "level": "high", "label": "Wysokie wyczerpanie"}
+        ]
+      },
+      "depersonalization": {
+        "max_score": 30,
+        "ranges": [
+          {"min": 0, "max": 6, "level": "low", "label": "Niska depersonalizacja"},
+          {"min": 7, "max": 12, "level": "moderate", "label": "Umiarkowana depersonalizacja"},
+          {"min": 13, "max": 30, "level": "high", "label": "Wysoka depersonalizacja"}
+        ]
+      },
+      "personal_accomplishment": {
+        "max_score": 48,
+        "ranges": [
+          {"min": 39, "max": 48, "level": "high", "label": "Wysokie poczucie osiągnięć"},
+          {"min": 32, "max": 38, "level": "moderate", "label": "Umiarkowane poczucie osiągnięć"},
+          {"min": 0, "max": 31, "level": "low", "label": "Niskie poczucie osiągnięć"}
+        ]
+      }
+    }
+  },
+  "MAST": {
+    "name": "Michigan Alcohol Screening Test",
+    "name_pl": "Michiganowski Test Przesiewowy Alkoholizmu",
+    "domain": "alcohol",
+    "domain_pl": "uzależnienie od alkoholu",
+    "methodology": "MAST to 24-itemowy kwestionariusz oceniający problemy związane z piciem alkoholu. Pytania dotyczą wzorców picia, konsekwencji i prób kontroli.",
+    "clinical_application": "Szeroko stosowane narzędzie przesiewowe do wykrywania problemów alkoholowych. Wysoka czułość, może generować fałszywie pozytywne wyniki.",
+    "scoring": {
+      "max_score": 22,
+      "ranges": [
+        {
+          "min": 0, "max": 2,
+          "level": "no_problem",
+          "label": "Brak problemu alkoholowego",
+          "clinical_interpretation": "Brak wskazań do dalszej diagnostyki uzależnienia."
+        },
+        {
+          "min": 3, "max": 5,
+          "level": "early_problem",
+          "label": "Wczesne sygnały problemu",
+          "clinical_interpretation": "Wczesne sygnały mogące wskazywać na ryzykowne picie. Wskazana psychoedukacja i obserwacja."
+        },
+        {
+          "min": 6, "max": 22,
+          "level": "alcohol_problem",
+          "label": "Problem alkoholowy",
+          "clinical_interpretation": "Wynik wskazujący na problem alkoholowy wymagający pogłębionej diagnostyki i wsparcia specjalistycznego."
+        }
+      ]
+    }
+  },
+  "ASRS": {
+    "name": "Adult ADHD Self-Report Scale v1.1",
+    "name_pl": "Skala Samooceny ADHD dla Dorosłych v1.1",
+    "domain": "adhd",
+    "domain_pl": "ADHD",
+    "methodology": "ASRS v1.1 to 18-itemowy kwestionariusz przesiewowy ADHD u dorosłych. Część A (6 pytań) jest używana do wstępnego screeningu, część B dostarcza dodatkowych informacji diagnostycznych.",
+    "clinical_application": "Narzędzie przesiewowe o wysokiej czułości. Pozytywny screening wymaga potwierdzenia przez specjalistę z użyciem pełnej diagnostyki.",
+    "scoring": {
+      "max_score": 72,
+      "part_a_max": 24,
+      "screening_threshold": 4,
+      "ranges": [
+        {"min": 0, "max": 3, "level": "unlikely", "label": "Niskie prawdopodobieństwo ADHD"},
+        {"min": 4, "max": 72, "level": "likely", "label": "Wskazania do dalszej diagnostyki ADHD"}
+      ]
+    }
+  },
+  "PCL-5": {
+    "name": "PTSD Checklist for DSM-5",
+    "name_pl": "Lista Kontrolna PTSD wg DSM-5",
+    "domain": "ptsd",
+    "domain_pl": "PTSD",
+    "methodology": "PCL-5 to 20-itemowy kwestionariusz oceniający nasilenie objawów PTSD według kryteriów DSM-5. Mierzy 4 klastry objawów: intruzje, unikanie, negatywne zmiany w myśleniu i nastroju, nadmierne pobudzenie.",
+    "clinical_application": "Narzędzie do screeningu PTSD i monitorowania zmian objawów. Punkt odcięcia 31-33 sugeruje prawdopodobne PTSD.",
+    "scoring": {
+      "max_score": 80,
+      "clinical_cutoff": 31,
+      "ranges": [
+        {"min": 0, "max": 30, "level": "subclinical", "label": "Objawy poniżej progu klinicznego"},
+        {"min": 31, "max": 80, "level": "clinical", "label": "Objawy na poziomie klinicznym - prawdopodobne PTSD"}
+      ]
+    }
+  },
+  "EPDS": {
+    "name": "Edinburgh Postnatal Depression Scale",
+    "name_pl": "Edynburska Skala Depresji Poporodowej",
+    "domain": "postpartum_depression",
+    "domain_pl": "depresja poporodowa",
+    "methodology": "EPDS to 10-itemowy kwestionariusz zaprojektowany specjalnie do wykrywania depresji poporodowej. Unika pytań o objawy somatyczne, które mogą być mylone z normalnymi zmianami poporodowymi.",
+    "clinical_application": "Złoty standard w screeningu depresji poporodowej. Pytanie 10 dotyczy myśli samobójczych i wymaga natychmiastowej oceny.",
+    "target_population": "kobiety w ciąży i po porodzie",
+    "scoring": {
+      "max_score": 30,
+      "ranges": [
+        {"min": 0, "max": 8, "level": "low_risk", "label": "Niskie ryzyko depresji poporodowej"},
+        {"min": 9, "max": 12, "level": "moderate_risk", "label": "Umiarkowane ryzyko - wskazana obserwacja"},
+        {"min": 13, "max": 30, "level": "high_risk", "label": "Wysokie ryzyko - wskazana konsultacja"}
+      ],
+      "suicidal_ideation_item": 10
+    }
+  }
+}

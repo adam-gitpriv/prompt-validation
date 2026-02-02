@@ -1,0 +1,62 @@
+[
+  {
+    "id": "A",
+    "name": "structural",
+    "template": "variant_a_structural.jinja2",
+    "description": "Podstawowy wariant strukturalny - jasna struktura, minimum kontekstu",
+    "recommended_for": "domyślny, najbezpieczniejszy",
+    "requires": {
+      "user_profile": false,
+      "instrument_methodology": false,
+      "previous_results": false
+    }
+  },
+  {
+    "id": "B",
+    "name": "clinical",
+    "template": "variant_b_clinical.jinja2",
+    "description": "Kontekstowo-kliniczny - wykorzystuje wiedzę o metodologii instrumentu",
+    "recommended_for": "gdy zależy nam na merytoryce i kontekście klinicznym",
+    "requires": {
+      "user_profile": false,
+      "instrument_methodology": true,
+      "previous_results": false
+    }
+  },
+  {
+    "id": "C",
+    "name": "personalized",
+    "template": "variant_c_personalized.jinja2",
+    "description": "Personalizowany - dopasowany do profilu użytkownika",
+    "recommended_for": "gdy mamy dane o użytkowniku (wiek, płeć, praca)",
+    "requires": {
+      "user_profile": true,
+      "instrument_methodology": false,
+      "previous_results": false
+    }
+  },
+  {
+    "id": "D",
+    "name": "fewshot",
+    "template": "variant_d_fewshot.jinja2",
+    "description": "Few-shot z przykładami - najbardziej przewidywalny output",
+    "recommended_for": "gdy zależy nam na spójności i jakości, łatwy do walidacji",
+    "requires": {
+      "user_profile": false,
+      "instrument_methodology": false,
+      "previous_results": false
+    }
+  },
+  {
+    "id": "E",
+    "name": "cot",
+    "template": "variant_e_cot.jinja2",
+    "description": "Chain-of-Thought - analiza krok po kroku przed generacją",
+    "recommended_for": "dla trudniejszych przypadków, edge cases, najwyższa jakość",
+    "requires": {
+      "user_profile": false,
+      "instrument_methodology": false,
+      "previous_results": false
+    }
+  }
+]
