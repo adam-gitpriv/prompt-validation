@@ -6,12 +6,24 @@ import random
 import streamlit as st
 from supabase import create_client
 
-# Config
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+# Config - support both env vars and Streamlit secrets
+def get_config(key: str) -> str:
+    """Get config from env vars or Streamlit secrets."""
+    # First try environment variables
+    value = os.environ.get(key)
+    if value:
+        return value
+    # Then try Streamlit secrets
+    try:
+        return st.secrets[key]
+    except (KeyError, FileNotFoundError):
+        return None
+
+SUPABASE_URL = get_config("SUPABASE_URL")
+SUPABASE_KEY = get_config("SUPABASE_KEY")
 
 if not SUPABASE_URL or not SUPABASE_KEY:
-    st.error("Brak konfiguracji Supabase. Ustaw SUPABASE_URL i SUPABASE_KEY.")
+    st.error("Brak konfiguracji Supabase. Ustaw SUPABASE_URL i SUPABASE_KEY w zmiennych srodowiskowych lub Streamlit secrets.")
     st.stop()
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
