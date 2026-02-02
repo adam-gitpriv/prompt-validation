@@ -1,0 +1,92 @@
+{
+  "PHQ-9": {
+    "name": "Patient Health Questionnaire-9",
+    "name_pl": "Kwestionariusz Zdrowia Pacjenta-9",
+    "instructions_pl": "W ciągu ostatnich 2 tygodni, jak często dokuczały Ci następujące problemy?",
+    "response_options": [
+      {"value": 0, "label": "Wcale"},
+      {"value": 1, "label": "Kilka dni"},
+      {"value": 2, "label": "Więcej niż połowę dni"},
+      {"value": 3, "label": "Prawie codziennie"}
+    ],
+    "items": [
+      {
+        "number": 1,
+        "text_pl": "Niewielkie zainteresowanie lub odczuwanie przyjemności z wykonywania czynności"
+      },
+      {
+        "number": 2,
+        "text_pl": "Uczucie smutku, przygnębienia lub beznadziejności"
+      },
+      {
+        "number": 3,
+        "text_pl": "Kłopoty z zaśnięciem, przerywany sen albo zbyt długi sen"
+      },
+      {
+        "number": 4,
+        "text_pl": "Uczucie zmęczenia lub brak energii"
+      },
+      {
+        "number": 5,
+        "text_pl": "Brak apetytu lub przejadanie się"
+      },
+      {
+        "number": 6,
+        "text_pl": "Poczucie niezadowolenia z siebie — lub uczucie, że jest się do niczego albo że zawiodło się siebie lub rodzinę"
+      },
+      {
+        "number": 7,
+        "text_pl": "Problemy ze skupieniem się na przykład przy czytaniu gazety lub oglądaniu telewizji"
+      },
+      {
+        "number": 8,
+        "text_pl": "Poruszanie się lub mówienie tak wolno, że inni mogliby to zauważyć. Albo przeciwnie — Loss z tego co robisz i poczucie niepokoju i kręcenia się w miejscu"
+      },
+      {
+        "number": 9,
+        "text_pl": "Myśli, że lepiej byłoby umrzeć albo chęć zrobienia sobie jakiejś krzywdy"
+      }
+    ]
+  },
+  "GAD-7": {
+    "name": "Generalized Anxiety Disorder-7",
+    "name_pl": "Skala Uogólnionego Zaburzenia Lękowego-7",
+    "instructions_pl": "W ciągu ostatnich 2 tygodni, jak często dokuczały Ci następujące problemy?",
+    "response_options": [
+      {"value": 0, "label": "Wcale"},
+      {"value": 1, "label": "Kilka dni"},
+      {"value": 2, "label": "Więcej niż połowę dni"},
+      {"value": 3, "label": "Prawie codziennie"}
+    ],
+    "items": [
+      {
+        "number": 1,
+        "text_pl": "Uczucie zdenerwowania, niepokoju lub podminowania"
+      },
+      {
+        "number": 2,
+        "text_pl": "Niemożność powstrzymania się od zamartwiania się lub kontrolowania zamartwiania się"
+      },
+      {
+        "number": 3,
+        "text_pl": "Nadmierne zamartwianie się różnymi sprawami"
+      },
+      {
+        "number": 4,
+        "text_pl": "Trudności z odprężeniem się"
+      },
+      {
+        "number": 5,
+        "text_pl": "Niepokój tak silny, że trudno usiedzieć w miejscu"
+      },
+      {
+        "number": 6,
+        "text_pl": "Łatwe irytowanie się lub zniecierpliwienie"
+      },
+      {
+        "number": 7,
+        "text_pl": "Uczucie strachu, jakby miało się wydarzyć coś złego"
+      }
+    ]
+  }
+}

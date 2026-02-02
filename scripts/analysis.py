@@ -242,15 +242,21 @@ def print_report(win_rates, h2h, evaluator_stats, instrument_breakdown, total_ev
             worst_rate = sorted_variants[-1][1]["win_rate"]
             print(f"  Najsłabszy wariant: {worst_variant} ({worst_rate:.1f}% win rate)")
 
-        # Insights
+        # Insights for V3 variants
         print()
         print("  Obserwacje:")
-        if best_variant in ["full", "with_history"]:
-            print("  - Więcej kontekstu (historia, pełny profil) poprawia jakość")
-        if best_variant in ["with_interests", "with_work"]:
-            print("  - Personalizacja przez zainteresowania/pracę jest wartościowa")
-        if sorted_variants[-1][0] == "basic":
-            print("  - Podstawowy prompt bez kontekstu jest najmniej efektywny")
+        if best_variant == "answers":
+            print("  - Odpowiedzi na pytania (nie tylko wynik) poprawiają jakość interpretacji")
+        if best_variant == "profile":
+            print("  - Pełny profil użytkownika (praca, subtematy) poprawia jakość")
+        if best_variant == "minimal":
+            print("  - Minimalne dane są wystarczające dla dobrej interpretacji")
+
+        if len(sorted_variants) > 1:
+            if sorted_variants[-1][0] == "minimal":
+                print("  - Brak kontekstu o użytkowniku obniża jakość interpretacji")
+            if sorted_variants[-1][0] == "profile" and best_variant == "answers":
+                print("  - Sam profil bez odpowiedzi jest niewystarczający")
 
     print()
 

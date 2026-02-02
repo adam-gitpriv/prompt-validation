@@ -40,19 +40,35 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 - `app/streamlit_app.py` - Blind A/B evaluation UI
 - `scripts/generate_interpretations.py` - LLM interpretation generation with rate limiting
 - `scripts/analysis.py` - Win rate and head-to-head analysis
-- `prompts/variant_*.jinja2` - V2 prompt templates (5 variants: structural, clinical, personalized, few-shot, chain-of-thought)
+- `scripts/test_templates.py` - Template rendering tests (no API required)
+- `prompts/variant_*.jinja2` - V3 prompt templates (3 variants testing data richness)
 - `data/instruments_extended.json` - Clinical instruments with subscales and scoring metadata
+- `data/user_profiles_v2.json` - 4 diverse user profiles with subtopics
+- `data/questionnaire_items.json` - PHQ-9 and GAD-7 question items
 
-### Prompt Variants
-| Variant | Template | Approach | Instruments |
-|---------|----------|----------|-------------|
-| structural | variant_a_structural.jinja2 | Safe baseline, clear format | All |
-| clinical | variant_b_clinical.jinja2 | Clinical methodology-aware | All |
-| personalized | variant_c_personalized.jinja2 | User profile adapted | All |
-| fewshot | variant_d_fewshot.jinja2 | Few-shot examples (recommended) | All |
-| cot | variant_e_cot.jinja2 | Chain-of-Thought reasoning | All |
-| kasia_phq9 | variant_kasia_phq9.jinja2 | Kasia's clinical guidelines | PHQ-9 only |
-| kasia_gad7 | variant_kasia_gad7.jinja2 | Kasia's clinical guidelines | GAD-7 only |
+### V3 Prompt Variants (Current)
+| Variant | Template | User Data | Input Data |
+|---------|----------|-----------|------------|
+| minimal | variant_minimal.jinja2 | name, age, gender | score + level only |
+| profile | variant_profile.jinja2 | + work_type, is_leader, ~15 subtopics | score + level only |
+| answers | variant_answers.jinja2 | + work_type, is_leader, ~15 subtopics | score + individual answers |
+
+### Research Questions
+1. **minimal vs profile** → Does full user context (work, subtopics) improve interpretations?
+2. **profile vs answers** → Do individual question answers improve quality?
+3. **minimal vs answers** → Full comparison: minimum vs maximum information
+
+### Test Cases
+- **4 profiles**: Ania (28, marketing), Tomek (38, IT leader), Magda (42, nurse), Marek (50, warehouse leader)
+- **2 instruments**: PHQ-9, GAD-7
+- **2 score levels**: moderate, severe
+- **Total**: 4 × 2 × 2 × 3 = 48 interpretations → 48 evaluation pairs
+
+### Legacy Variants (Reference)
+| Variant | Template | Notes |
+|---------|----------|-------|
+| kasia_phq9 | variant_kasia_phq9.jinja2 | Kasia's clinical guidelines for PHQ-9 |
+| kasia_gad7 | variant_kasia_gad7.jinja2 | Kasia's clinical guidelines for GAD-7 |
 
 ### Database (Supabase)
 - `interpretations` - Generated text with variant, instrument, score, user profile
