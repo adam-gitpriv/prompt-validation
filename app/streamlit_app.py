@@ -130,33 +130,54 @@ if "page" not in st.session_state:
 
 def get_random_pair():
     """Get two random interpretations for the same instrument/score/profile to compare."""
+    # Get all non-empty interpretations
     result = supabase.table("interpretations").select(
-        "instrument_code, score, level, user_profile_id"
+        "id, instrument_code, score, level, user_profile_id, interpretation_text"
     ).in_("instrument_code", ["PHQ-9", "GAD-7"]).execute()
 
     if not result.data:
         return None
 
+    # Filter out empty interpretations
+    valid_interpretations = [
+        r for r in result.data
+        if r.get("interpretation_text") and r["interpretation_text"].strip()
+    ]
+
+    if not valid_interpretations:
+        return None
+
+    # Group by (instrument, score, level, profile)
     combinations = list(set(
         (r["instrument_code"], r["score"], r["level"], r["user_profile_id"])
-        for r in result.data
+        for r in valid_interpretations
     ))
 
     if not combinations:
         return None
 
-    instrument, score, level, user_profile_id = random.choice(combinations)
+    # Shuffle and try combinations until we find one with 2+ interpretations
+    random.shuffle(combinations)
 
-    interpretations = supabase.table("interpretations").select("*").eq(
-        "instrument_code", instrument
-    ).eq("score", score).eq("user_profile_id", user_profile_id).execute()
+    for instrument, score, level, user_profile_id in combinations:
+        # Filter matching interpretations from already-loaded data
+        matching = [
+            r for r in valid_interpretations
+            if r["instrument_code"] == instrument
+            and r["score"] == score
+            and r["user_profile_id"] == user_profile_id
+        ]
 
-    if len(interpretations.data) < 2:
-        return None
+        if len(matching) >= 2:
+            # Fetch full data for the pair
+            pair_ids = [m["id"] for m in random.sample(matching, 2)]
+            full_data = supabase.table("interpretations").select("*").in_("id", pair_ids).execute()
+            if len(full_data.data) == 2:
+                pair = full_data.data
+                random.shuffle(pair)
+                return pair
 
-    pair = random.sample(interpretations.data, 2)
-    random.shuffle(pair)
-    return pair
+    return None
 
 
 def save_evaluation(winner_id: str, loser_id: str | None):

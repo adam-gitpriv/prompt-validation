@@ -184,7 +184,7 @@ def generate_interpretation(
     response = get_openai_client().chat.completions.create(
         model=MODEL,
         messages=[{"role": "user", "content": prompt}],
-        max_completion_tokens=1500,
+        max_completion_tokens=16000,  # High limit needed for reasoning models (reasoning_tokens + output)
         temperature=0.7
     )
 
@@ -192,13 +192,28 @@ def generate_interpretation(
 
 
 def check_existing(instrument_code: str, score: int, variant_id: str, profile_id: int) -> bool:
-    """Check if interpretation already exists."""
-    result = get_supabase_client().table("interpretations").select("id").eq(
+    """Check if interpretation already exists with non-empty text. Delete empty ones."""
+    result = get_supabase_client().table("interpretations").select("id, interpretation_text").eq(
         "instrument_code", instrument_code
     ).eq("score", score).eq("prompt_variant", variant_id).eq(
         "user_profile_id", profile_id
     ).execute()
-    return len(result.data) > 0
+
+    has_valid = False
+    empty_ids = []
+
+    for r in result.data:
+        text = r.get("interpretation_text")
+        if text and text.strip():
+            has_valid = True
+        else:
+            empty_ids.append(r["id"])
+
+    # Delete any empty records to avoid duplicates
+    if empty_ids:
+        get_supabase_client().table("interpretations").delete().in_("id", empty_ids).execute()
+
+    return has_valid
 
 
 def main(dry_run: bool = False, limit: int = None, skip_existing: bool = True):
@@ -256,6 +271,12 @@ def main(dry_run: bool = False, limit: int = None, skip_existing: bool = True):
                             variant_id=variant["id"],
                             profile=profile
                         )
+
+                        # Validate interpretation is not empty
+                        if not interpretation or not interpretation.strip():
+                            print(f"WARNING: Empty response for {instrument_code}/{variant['id']}/profile={profile['id']}/score={score_info['score']}")
+                            errors += 1
+                            continue
 
                         # Build record with V3 profile data
                         record = {
