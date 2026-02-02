@@ -15,11 +15,14 @@ source venv/bin/activate
 # Reset database (clear all interpretations and evaluations)
 python scripts/reset_database.py
 
-# Generate interpretations (test mode - 3 samples, no DB)
-python scripts/generate_interpretations.py --dry-run
+# Generate interpretations - PARALLEL (recommended, ~30-60s)
+python scripts/generate_interpretations_parallel.py
 
-# Generate all interpretations (64 total)
+# Generate interpretations - sequential (slower, ~20 min)
 python scripts/generate_interpretations.py
+
+# Test mode (3 samples, no DB)
+python scripts/generate_interpretations_parallel.py --dry-run
 
 # Run evaluation UI locally
 streamlit run app/streamlit_app.py
@@ -40,8 +43,8 @@ source venv/bin/activate
 # 2. Clear previous data
 python scripts/reset_database.py
 
-# 3. Generate 64 interpretations (~20 min with rate limiting)
-python scripts/generate_interpretations.py
+# 3. Generate 64 interpretations (~30-60s with parallel, ~20 min sequential)
+python scripts/generate_interpretations_parallel.py
 
 # 4. Run evaluation UI
 streamlit run app/streamlit_app.py
@@ -57,7 +60,8 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 
 ### Key Components
 - `app/streamlit_app.py` - Blind A/B evaluation UI
-- `scripts/generate_interpretations.py` - LLM interpretation generation with rate limiting
+- `scripts/generate_interpretations_parallel.py` - Fast parallel generation with asyncio (~30-60s for 64)
+- `scripts/generate_interpretations.py` - Sequential generation (slower, ~20 min)
 - `scripts/reset_database.py` - Clear all interpretations and evaluations for fresh experiment
 - `scripts/compare_variants.py` - Quick comparison of all variants for same profile/score
 - `scripts/analysis.py` - Win rate and head-to-head analysis
