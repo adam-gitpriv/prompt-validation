@@ -46,29 +46,27 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 - `data/user_profiles_v2.json` - 4 diverse user profiles with subtopics
 - `data/questionnaire_items.json` - PHQ-9 and GAD-7 question items
 
-### V3 Prompt Variants (Current)
-| Variant | Template | User Data | Input Data |
-|---------|----------|-----------|------------|
-| minimal | variant_minimal.jinja2 | name, age, gender | score + level only |
-| profile | variant_profile.jinja2 | + work_type, is_leader, ~15 subtopics | score + level only |
-| answers | variant_answers.jinja2 | + work_type, is_leader, ~15 subtopics | score + individual answers |
+### Prompt Variants (5 total)
+| Variant | Template | Instruments | User Data | Input Data |
+|---------|----------|-------------|-----------|------------|
+| minimal | variant_minimal.jinja2 | PHQ-9, GAD-7 | name, age, gender | score + level only |
+| profile | variant_profile.jinja2 | PHQ-9, GAD-7 | + work_type, is_leader, ~15 subtopics | score + level only |
+| answers | variant_answers.jinja2 | PHQ-9, GAD-7 | + work_type, is_leader, ~15 subtopics | score + individual answers |
+| kasia_phq9 | variant_kasia_phq9.jinja2 | PHQ-9 only | name, age, gender, work_type | score + level (clinical guidelines) |
+| kasia_gad7 | variant_kasia_gad7.jinja2 | GAD-7 only | name, age, gender, work_type | score + level (clinical guidelines) |
 
 ### Research Questions
 1. **minimal vs profile** → Does full user context (work, subtopics) improve interpretations?
 2. **profile vs answers** → Do individual question answers improve quality?
 3. **minimal vs answers** → Full comparison: minimum vs maximum information
+4. **kasia vs others** → Do Kasia's clinical guidelines produce better interpretations?
 
 ### Test Cases
 - **4 profiles**: Ania (28, marketing), Tomek (38, IT leader), Magda (42, nurse), Marek (50, warehouse leader)
 - **2 instruments**: PHQ-9, GAD-7
 - **2 score levels**: moderate, severe
-- **Total**: 4 × 2 × 2 × 3 = 48 interpretations → 48 evaluation pairs
-
-### Legacy Variants (Reference)
-| Variant | Template | Notes |
-|---------|----------|-------|
-| kasia_phq9 | variant_kasia_phq9.jinja2 | Kasia's clinical guidelines for PHQ-9 |
-| kasia_gad7 | variant_kasia_gad7.jinja2 | Kasia's clinical guidelines for GAD-7 |
+- **4 variants per instrument**: minimal, profile, answers + kasia (instrument-specific)
+- **Total**: 4 profiles × 2 instruments × 2 scores × 4 variants = 64 interpretations
 
 ### Database (Supabase)
 - `interpretations` - Generated text with variant, instrument, score, user profile

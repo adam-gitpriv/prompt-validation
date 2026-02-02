@@ -34,10 +34,13 @@ with open(BASE_DIR / "data/questionnaire_items.json") as f:
     QUESTIONNAIRE_ITEMS = json.load(f)
 
 # V3 prompt variants - focused on comparing data richness
+# Plus Kasia's clinical variants (instrument-specific)
 PROMPT_VARIANTS = [
     {"id": "minimal", "template": "variant_minimal.jinja2", "instruments": ["PHQ-9", "GAD-7"]},
     {"id": "profile", "template": "variant_profile.jinja2", "instruments": ["PHQ-9", "GAD-7"]},
     {"id": "answers", "template": "variant_answers.jinja2", "instruments": ["PHQ-9", "GAD-7"]},
+    {"id": "kasia_phq9", "template": "variant_kasia_phq9.jinja2", "instruments": ["PHQ-9"]},
+    {"id": "kasia_gad7", "template": "variant_kasia_gad7.jinja2", "instruments": ["GAD-7"]},
 ]
 
 # Test cases: 2 score levels per instrument (moderate and severe)
@@ -157,7 +160,13 @@ def generate_interpretation(
         "user_gender": profile["gender"],
     }
 
-    # Add profile data for 'profile' and 'answers' variants
+    # Add work_type for Kasia variants (they use basic user data + work context)
+    if variant_id in ["kasia_phq9", "kasia_gad7"]:
+        context.update({
+            "work_type": profile["work_type"],
+        })
+
+    # Add full profile data for 'profile' and 'answers' variants
     if variant_id in ["profile", "answers"]:
         context.update({
             "work_type": profile["work_type"],
@@ -198,9 +207,14 @@ def main(dry_run: bool = False, limit: int = None, skip_existing: bool = True):
     skipped = 0
     errors = 0
 
-    # Calculate total
-    # 4 profiles × 2 instruments × 2 scores × 3 variants = 48
-    total = len(USER_PROFILES) * len(TEST_SCORES) * 2 * len(PROMPT_VARIANTS)
+    # Calculate total (accounting for instrument-specific variants)
+    # PHQ-9: 4 variants (minimal, profile, answers, kasia_phq9) × 4 profiles × 2 scores = 32
+    # GAD-7: 4 variants (minimal, profile, answers, kasia_gad7) × 4 profiles × 2 scores = 32
+    # Total: 64 interpretations
+    total = 0
+    for instrument_code in TEST_SCORES.keys():
+        variants_for_instrument = [v for v in PROMPT_VARIANTS if instrument_code in v["instruments"]]
+        total += len(variants_for_instrument) * len(USER_PROFILES) * 2  # 2 score levels
 
     print(f"Generating {total} interpretations...")
     print(f"Instruments: {list(TEST_SCORES.keys())}")
@@ -215,6 +229,10 @@ def main(dry_run: bool = False, limit: int = None, skip_existing: bool = True):
     for instrument_code, scores in TEST_SCORES.items():
         for score_info in scores:
             for variant in PROMPT_VARIANTS:
+                # Skip if variant doesn't support this instrument
+                if instrument_code not in variant["instruments"]:
+                    continue
+
                 for profile in USER_PROFILES:
                     if limit and generated >= limit:
                         print(f"\n✅ Generated {generated} interpretations (limit reached)")

@@ -10,14 +10,18 @@ Twoja odpowiedź ma:
 * unikać schematycznych sformułowań i powtórzeń,
 * wzmacniać poczucie sprawczości i bezpieczeństwa.
 
+### DANE O UŻYTKOWNIKU
+
+* **Imię:** {{ user_name }}
+* **Wiek:** {{ user_age }} lat
+* **Płeć:** {{ user_gender }}
+* **Rodzaj pracy:** {{ work_type }}
+
 ### DANE WEJŚCIOWE
 
-* **WYNIK_PUNKTY:** {{ score }}
-* **POPRZEDNI_WYNIK_PUNKTY:** {% if previous_score is defined %}{{ previous_score }}{% else %}brak{% endif %}
-* **CZAS_OD_POPRZEDNIEGO_POMIARU:** {% if previous_date is defined %}{{ previous_date }}{% else %}brak{% endif %}
-
-Jeśli poprzedni wynik **nie istnieje**, **nie wspominaj o porównaniu w czasie**.
-Jeśli poprzedni wynik **istnieje**, uwzględnij zmianę (poprawę, pogorszenie lub stabilność) w interpretacji w sposób **nienacechowany oceną**, z podkreśleniem, że zmiany nastroju są procesem.
+* **Instrument:** PHQ-9
+* **Wynik punktowy:** {{ score }} / {{ max_score }}
+* **Poziom:** {{ level_label }}
 
 ### KLASYFIKACJA WYNIKU PHQ-9
 
@@ -83,15 +87,8 @@ unikaj dramatyzowania, ale jasno komunikuj wagę sytuacji.
 
 ### Interpretacja
 
-Rozszerzony, spokojny opis znaczenia wyniku.
-Jeśli dostępny jest **poprzedni wynik**, uwzględnij:
-* jeśli wynik się zmienił to kierunek zmiany (wzrost / spadek / stabilność):
-– przy poprawie: nazwij ją jako możliwy sygnał ulgi, regeneracji lub lepszego wsparcia,
-– przy pogorszeniu: nazwij ją jako informację o przeciążeniu, a nie „coś poszło źle",
-– przy stabilności: podkreśl znaczenie uważnej obserwacji i ciągłości wsparcia.
-* możliwe znaczenie tej zmiany,
-* podkreślenie, że pojedynczy pomiar nie definiuje osoby ani jej przyszłości.
-
+Rozszerzony, spokojny opis znaczenia wyniku, zwracając się bezpośrednio do użytkownika po imieniu.
+Uwzględnij kontekst rodzaju pracy (umysłowa/fizyczna) przy opisie wpływu objawów na codzienne funkcjonowanie.
 Jeśli wskazane – uzasadnij kontakt ze specjalistą w sposób **nienarzucający się** i **wspierający**.
 
 ### Co możesz zrobić już dziś

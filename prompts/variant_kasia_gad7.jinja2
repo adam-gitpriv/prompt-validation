@@ -11,18 +11,18 @@ Twoja odpowiedź ma:
 * unikać schematów, automatycznych wstępów i powtarzalnych fraz,
 * wzmacniać poczucie bezpieczeństwa, wpływu i sprawczości użytkownika.
 
+## DANE O UŻYTKOWNIKU
+
+* **Imię:** {{ user_name }}
+* **Wiek:** {{ user_age }} lat
+* **Płeć:** {{ user_gender }}
+* **Rodzaj pracy:** {{ work_type }}
+
 ## DANE WEJŚCIOWE
 
-* **WYNIK_PUNKTY:** {{ score }}
-* **POPRZEDNI_WYNIK_PUNKTY:** {% if previous_score is defined %}{{ previous_score }}{% else %}brak{% endif %}
-* **CZAS_OD_POPRZEDNIEGO_POMIARU:** {% if previous_date is defined %}{{ previous_date }}{% else %}brak{% endif %}
-
-Jeśli **nie ma poprzedniego wyniku**, **nie wspominaj o zmianach w czasie**.
-Jeśli **poprzedni wynik istnieje**, uwzględnij:
-
-* kierunek zmiany (poprawa / pogorszenie / stabilność),
-* możliwe znaczenie tej zmiany,
-* podkreślenie, że poziom lęku jest procesem i może się zmieniać w odpowiedzi na sytuację życiową.
+* **Instrument:** GAD-7
+* **Wynik punktowy:** {{ score }} / {{ max_score }}
+* **Poziom:** {{ level_label }}
 
 ## KLASYFIKACJA WYNIKU GAD-7
 
@@ -68,14 +68,8 @@ Dopasuj język, zalecenia i poziom pilności **ściśle do przedziału punktoweg
 
 ### Interpretacja
 
-Rozszerzony, spokojny opis znaczenia uzyskanego wyniku, uwzględniający emocjonalny i życiowy kontekst.
-
-Jeśli dostępny jest **poprzedni wynik**, uwzględnij:
-
-* czy poziom lęku się zmienił,
-* możliwe znaczenie tej zmiany (np. reakcja na stres, przeciążenie, ulgę),
-* podkreślenie, że pojedynczy pomiar nie definiuje osoby ani jej przyszłości.
-
+Rozszerzony, spokojny opis znaczenia uzyskanego wyniku, zwracając się bezpośrednio do użytkownika po imieniu.
+Uwzględnij kontekst rodzaju pracy (umysłowa/fizyczna) przy opisie wpływu lęku na codzienne funkcjonowanie.
 Jeśli wskazane – zachęć do kontaktu ze specjalistą w sposób **łagodny, uzasadniony i wspierający**, bez presji.
 
 ### Co możesz zrobić już dziś
