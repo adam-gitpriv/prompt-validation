@@ -292,18 +292,62 @@ if st.session_state.page == "results":
 
     st.markdown("---")
 
-    # Head-to-head
-    st.markdown("### Pojedynki bezpośrednie")
+    # Head-to-head matrix
+    st.markdown("### Macierz pojedynków bezpośrednich")
+    st.caption("Procent wygranych: jak często wariant z wiersza wygrywa z wariantem z kolumny")
 
-    if stats["head_to_head"]:
-        h2h_rows = []
-        for (winner, loser), count in sorted(stats["head_to_head"].items(), key=lambda x: -x[1]):
-            h2h_rows.append({
-                "Zwycięzca": winner,
-                "Przegrany": loser,
-                "Liczba": count
-            })
-        st.dataframe(h2h_rows, use_container_width=True, hide_index=True)
+    if stats["head_to_head"] and all_variants:
+        sorted_variants = sorted(all_variants)
+        matrix_data = []
+
+        for row_var in sorted_variants:
+            row = {"Wariant ↓ vs →": row_var}
+            row_total_wins = 0
+            row_total_matches = 0
+            for col_var in sorted_variants:
+                if row_var == col_var:
+                    row[col_var] = "—"
+                else:
+                    wins = stats["head_to_head"].get((row_var, col_var), 0)
+                    losses = stats["head_to_head"].get((col_var, row_var), 0)
+                    total = wins + losses
+                    row_total_wins += wins
+                    row_total_matches += total
+                    if total > 0:
+                        pct = wins / total * 100
+                        row[col_var] = f"{pct:.0f}%"
+                    else:
+                        row[col_var] = "—"
+            # Add row totals
+            if row_total_matches > 0:
+                pct = row_total_wins / row_total_matches * 100
+                row["RAZEM"] = f"{pct:.0f}%"
+            else:
+                row["RAZEM"] = "—"
+            matrix_data.append(row)
+
+        st.dataframe(matrix_data, use_container_width=True, hide_index=True)
+
+        # Overall winner
+        st.markdown("---")
+        st.markdown("### 🏆 Ranking końcowy")
+
+        ranking = []
+        for v in sorted_variants:
+            total_wins = sum(stats["head_to_head"].get((v, other), 0) for other in sorted_variants if other != v)
+            total_matches = sum(
+                stats["head_to_head"].get((v, other), 0) + stats["head_to_head"].get((other, v), 0)
+                for other in sorted_variants if other != v
+            )
+            if total_matches > 0:
+                win_pct = total_wins / total_matches * 100
+                ranking.append((v, total_wins, total_matches, win_pct))
+
+        ranking.sort(key=lambda x: x[3], reverse=True)
+
+        for i, (v, wins, matches, pct) in enumerate(ranking, 1):
+            medal = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"{i}."
+            st.markdown(f"{medal} **{v}** — {wins}/{matches} wygranych ({pct:.1f}%)")
     else:
         st.info("Brak pojedynków do wyświetlenia.")
 
