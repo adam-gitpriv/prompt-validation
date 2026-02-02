@@ -216,9 +216,16 @@ if not st.session_state.evaluator_name:
     st.title("🧠 Walidacja Promptów Diagnostycznych")
     st.markdown("---")
     name = st.text_input("Twoje imię lub nick:")
-    if st.button("Rozpocznij", type="primary") and name:
-        st.session_state.evaluator_name = name.strip()
-        st.rerun()
+    col_login1, col_login2 = st.columns(2)
+    with col_login1:
+        if st.button("Rozpocznij ocenianie", type="primary", use_container_width=True) and name:
+            st.session_state.evaluator_name = name.strip()
+            st.rerun()
+    with col_login2:
+        if st.button("📊 Zobacz wyniki", use_container_width=True):
+            st.session_state.evaluator_name = "Gość"
+            st.session_state.page = "results"
+            st.rerun()
     st.stop()
 
 # === HEADER WITH NAVIGATION ===
