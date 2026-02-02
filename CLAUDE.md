@@ -12,10 +12,13 @@ Prompt validation tool for mental health diagnostic interpretations at Mindgram.
 # Activate virtual environment
 source venv/bin/activate
 
+# Reset database (clear all interpretations and evaluations)
+python scripts/reset_database.py
+
 # Generate interpretations (test mode - 3 samples, no DB)
 python scripts/generate_interpretations.py --dry-run
 
-# Generate all interpretations
+# Generate all interpretations (64 total)
 python scripts/generate_interpretations.py
 
 # Run evaluation UI locally
@@ -28,10 +31,26 @@ python scripts/analysis.py
 python scripts/setup_supabase.py
 ```
 
+## Experiment Workflow
+
+```bash
+# 1. Activate environment
+source venv/bin/activate
+
+# 2. Clear previous data
+python scripts/reset_database.py
+
+# 3. Generate 64 interpretations (~20 min with rate limiting)
+python scripts/generate_interpretations.py
+
+# 4. Run evaluation UI
+streamlit run app/streamlit_app.py
+```
+
 ## Architecture
 
 ### Generation Pipeline
-`User Profiles × Instruments × Score Levels` → Jinja2 template rendering → GPT-4o API → Supabase storage
+`User Profiles × Instruments × Score Levels` → Jinja2 template rendering → GPT-4.1 API → Supabase storage
 
 ### Evaluation Flow
 Blind A/B pairs (same instrument/score, different variants) → Evaluator rates winner + 1-5 scale → Analysis computes win rates
@@ -39,6 +58,7 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 ### Key Components
 - `app/streamlit_app.py` - Blind A/B evaluation UI
 - `scripts/generate_interpretations.py` - LLM interpretation generation with rate limiting
+- `scripts/reset_database.py` - Clear all interpretations and evaluations for fresh experiment
 - `scripts/compare_variants.py` - Quick comparison of all variants for same profile/score
 - `scripts/analysis.py` - Win rate and head-to-head analysis
 - `scripts/test_templates.py` - Template rendering tests (no API required)
@@ -83,7 +103,7 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 ## Environment Variables
 
 Required (set in ~/.zshrc or Streamlit Cloud secrets):
-- `OPENAI_API_KEY` - GPT-4o API access
+- `OPENAI_API_KEY` - GPT-4.1 API access
 - `SUPABASE_URL` - PostgreSQL endpoint
 - `SUPABASE_KEY` - Database auth
 
