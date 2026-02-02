@@ -86,6 +86,14 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 - **answers**: Identifies specific problem areas from questionnaire responses, most targeted
 - **kasia_***: Clinical guidelines from psychologist, structured format, work-aware but no subtopics
 
+### Output Structure (minimal, profile, answers)
+All non-Kasia prompts enforce consistent output format:
+- **Podsumowanie**: 3 bullet points, each max 1-2 sentences
+- **Interpretacja**: Max 5 paragraphs, with best practices (validation, simple language, screening≠diagnosis, emotional neutrality)
+- **Co możesz zrobić już dziś**: Exactly 5 action points, format: `**Technique name**` + 3 concise sentences
+
+Best practices applied from `research/interpretation_best_practices.md`.
+
 ### Research Questions
 1. **minimal vs profile** → Does full user context (work, subtopics) improve interpretations?
 2. **profile vs answers** → Do individual question answers improve quality?
