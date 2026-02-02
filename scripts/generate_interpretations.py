@@ -19,7 +19,7 @@ from supabase import create_client
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-MODEL = "gpt-4o"
+MODEL = "gpt-4.1"
 
 BASE_DIR = Path(__file__).parent.parent
 

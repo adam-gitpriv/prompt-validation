@@ -69,6 +69,16 @@ PROMPT_DESCRIPTIONS = {
         "desc": "Pełny profil + indywidualne odpowiedzi na pytania kwestionariusza. Prompt analizuje wzorce odpowiedzi.",
         "data": "imię, wiek, płeć, praca, lider, ~15 zainteresowań, wynik, poziom + odpowiedzi na każde pytanie"
     },
+    "kasia_phq9": {
+        "name": "Kasia PHQ-9",
+        "desc": "Prompt kliniczny od psychologa (Kasia) dla PHQ-9. Strukturyzowany format, wytyczne kliniczne, kontekst pracy.",
+        "data": "imię, wiek, płeć, praca, wynik, poziom (wytyczne kliniczne w prompcie)"
+    },
+    "kasia_gad7": {
+        "name": "Kasia GAD-7",
+        "desc": "Prompt kliniczny od psychologa (Kasia) dla GAD-7. Strukturyzowany format, wytyczne kliniczne, kontekst pracy.",
+        "data": "imię, wiek, płeć, praca, wynik, poziom (wytyczne kliniczne w prompcie)"
+    },
 }
 
 
