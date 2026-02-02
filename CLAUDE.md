@@ -39,9 +39,10 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 ### Key Components
 - `app/streamlit_app.py` - Blind A/B evaluation UI
 - `scripts/generate_interpretations.py` - LLM interpretation generation with rate limiting
+- `scripts/compare_variants.py` - Quick comparison of all variants for same profile/score
 - `scripts/analysis.py` - Win rate and head-to-head analysis
 - `scripts/test_templates.py` - Template rendering tests (no API required)
-- `prompts/variant_*.jinja2` - V3 prompt templates (3 variants testing data richness)
+- `prompts/variant_*.jinja2` - 5 prompt templates (3 data-richness + 2 Kasia clinical)
 - `data/instruments_extended.json` - Clinical instruments with subscales and scoring metadata
 - `data/user_profiles_v2.json` - 4 diverse user profiles with subtopics
 - `data/questionnaire_items.json` - PHQ-9 and GAD-7 question items
@@ -55,11 +56,18 @@ Blind A/B pairs (same instrument/score, different variants) → Evaluator rates 
 | kasia_phq9 | variant_kasia_phq9.jinja2 | PHQ-9 only | name, age, gender, work_type | score + level (clinical guidelines) |
 | kasia_gad7 | variant_kasia_gad7.jinja2 | GAD-7 only | name, age, gender, work_type | score + level (clinical guidelines) |
 
+### Variant Characteristics
+- **minimal**: Generic interpretation, no work/life context, universal recommendations
+- **profile**: Personalized to work type and interests, references Mindgram content
+- **answers**: Identifies specific problem areas from questionnaire responses, most targeted
+- **kasia_***: Clinical guidelines from psychologist, structured format, work-aware but no subtopics
+
 ### Research Questions
 1. **minimal vs profile** → Does full user context (work, subtopics) improve interpretations?
 2. **profile vs answers** → Do individual question answers improve quality?
 3. **minimal vs answers** → Full comparison: minimum vs maximum information
 4. **kasia vs others** → Do Kasia's clinical guidelines produce better interpretations?
+5. **kasia vs profile** → Clinical structure vs rich personalization (same user data level)
 
 ### Test Cases
 - **4 profiles**: Ania (28, marketing), Tomek (38, IT leader), Magda (42, nurse), Marek (50, warehouse leader)
